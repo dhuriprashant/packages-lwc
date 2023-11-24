@@ -5,13 +5,16 @@
       <lightning-layout multiple-rows="true">
         <lightning-layout-item size="12" padding="around-small">
           <lightning-card title="Packages">
+            <lightning-helptext
+              icon-name="utility:info"
+              content="Click on a row radio button to display related package versions and package subscribers."
+            ></lightning-helptext>
             <lightning-datatable
               key-field="Id"
               data={packages.data}
               columns={columns}
               max-row-selection="1"
               onrowselection={onRowSelection}
-              default-selected-rows={defaultSelectedRows}
             >
             </lightning-datatable>
           </lightning-card>

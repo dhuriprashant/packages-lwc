@@ -1,4 +1,5 @@
 import { LightningElement, wire, track } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getPackageInfo from "@salesforce/apex/PackageController.getPackageInfo";
 import getPackageVersions from "@salesforce/apex/PackageController.getPackageVersions";
 import getPackageSubscribers from "@salesforce/apex/PackageController.getPackageSubscribers";
@@ -53,10 +54,8 @@ const SCOLS = [
 ];
 
 export default class PackagingInfo extends LightningElement {
-  @track metadataPackageId = "";
   @track packageVersions;
   @track packageSubscribers;
-  @track defaultSelectedRows = [];
 
   columns = COLS;
   vColumns = VCOLS;
@@ -65,43 +64,39 @@ export default class PackagingInfo extends LightningElement {
   @wire(getPackageInfo)
   packages;
 
-  renderedCallback() {
-    if (
-      this.packages.data &&
-      this.packages.data.length > 0 &&
-      this.defaultSelectedRows.length === 0
-    ) {
-      this.defaultSelectedRows = [this.packages.data[0].Id];
-      this.metadataPackageId = this.packages.data[0].Id;
-      console.log("defaultSelectedRows:", this.defaultSelectedRows);
-    }
-    console.log("packages.data:", this.packages.data);
-  }
-
   onRowSelection(event) {
-    const selectedRows = event.detail.selectedRows;
-    if (selectedRows.length > 0) {
-      this.metadataPackageId = selectedRows[0].Id;
-    }
+    const selectedRowId = event.detail.selectedRows[0].Id;
+
+    // Fetch related package versions and package subscribers
+    getPackageVersions({ metadataPackageid: selectedRowId })
+      .then((result) => {
+        this.packageVersions = result;
+      })
+      .catch((error) => {
+        console.error("Error fetching package versions:", error);
+      });
+
+    getPackageSubscribers({ metadataPackageid: selectedRowId })
+      .then((result) => {
+        this.packageSubscribers = result;
+      })
+      .catch((error) => {
+        console.error("Error fetching package subscribers:", error);
+      });
   }
 
-  @wire(getPackageVersions, { metadataPackageid: "$metadataPackageId" })
-  wiredPackageVersions({ data, error }) {
-    if (data) {
-      this.packageVersions = data;
-    } else if (error) {
-      this.packageVersions = undefined;
-      console.error("Error fetching package versions:", error);
-    }
+  showToast() {
+    this.dispatchEvent(
+      new ShowToastEvent({
+        title: "Tip",
+        message:
+          "Click on a row radio button to display related package versions and package subscribers.",
+        variant: "info"
+      })
+    );
   }
 
-  @wire(getPackageSubscribers, { metadataPackageid: "$metadataPackageId" })
-  wiredPackageSubscribers({ data, error }) {
-    if (data) {
-      this.packageSubscribers = data;
-    } else if (error) {
-      this.packageSubscribers = undefined;
-      console.error("Error fetching package subscribers:", error);
-    }
+  connectedCallback() {
+    this.showToast();
   }
 }
