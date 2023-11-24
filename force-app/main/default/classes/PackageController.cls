@@ -5,7 +5,6 @@ public with sharing class PackageController {
         try {
                 List<MetadataPackage> packages = [SELECT Id, Name, NamespacePrefix, PackageCategory FROM MetadataPackage ORDER BY SystemModStamp DESC];
                 return packages;
-            
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
