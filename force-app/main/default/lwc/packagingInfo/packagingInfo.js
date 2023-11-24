@@ -33,61 +33,25 @@ const SCOLS = [
 
 
 export default class PackagingInfo extends LightningElement {
-    @track metadataPackageid = '';
+    @track metadataPackageId = '';
     @track packageVersions;
     @track packageSubscribers;
 
-    data = [];
     columns = COLS;
     vColumns = VCOLS;
     sColumns = SCOLS;
 
-    /*
-    connectedCallback() {
-        const data = getPackageInfo;
-        this.data = data;
-    }
-
-    @wire(getPackageVersions)
-    packageVersions;
-
-    @wire(getPackageSubscribers)
-    packageSubscribers;
-    */
-
     @wire(getPackageInfo)
     packages;
-
-    handleRowAction(event) {
-        const action = event.detail.action;
-        const row = event.detail.row;
-        switch (action.name) {
-            case 'show_versions':
-                alert('Showing versions: ' + JSON.stringify(row));
-                break;
-            case 'show_subscribers':
-                /*
-                const rows = this.data;
-                const rowIndex = rows.indexOf(row);
-                rows.splice(rowIndex, 1);
-                this.data = rows;*/
-
-                alert('Showing subscribers: ' + JSON.stringify(row));
-                break;
+    
+    onRowSelection( event ) {
+        const selectedRows = event.detail.selectedRows;
+        if (selectedRows.length > 0) {
+            this.metadataPackageId = selectedRows[0].Id;
         }
     }
 
-    onRowSelection( event ) {
-        this.metadataPackageid = '033Hn0000007JkrIAE';
-        const selectedRows = event.detail.selectedRows;
-        console.log(
-            'selectedRows are ',
-            JSON.stringify( selectedRows )
-        );
-
-    }
-
-    @wire(getPackageVersions,{metadataPackageid: '$metadataPackageid'})
+    @wire(getPackageVersions,{metadataPackageid: '$metadataPackageId'})
     wiredPackageVersions({data, error}){
         if(data){
             this.packageVersions = data;
@@ -97,7 +61,7 @@ export default class PackagingInfo extends LightningElement {
         }
     }
 
-    @wire(getPackageSubscribers,{metadataPackageid: '$metadataPackageid'})
+    @wire(getPackageSubscribers,{metadataPackageid: '$metadataPackageId'})
     wiredPackageSubscribers({data, error}){
         if(data){
             this.packageSubscribers = data;
