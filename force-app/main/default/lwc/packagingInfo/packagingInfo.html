@@ -1,0 +1,29 @@
+<template>
+    <div>
+        <template if:true={packages.data}>
+            <lightning-card  title="Packages">
+                <lightning-datatable
+                    key-field="Id"
+                    data={packages.data}
+                    columns={columns} max-row-selection="1"
+                    onrowaction={handleRowAction}
+                    onrowselection={onRowSelection}>
+                </lightning-datatable>
+            </lightning-card>
+            <lightning-card  title="Package Versions">
+                <lightning-datatable
+                    key-field="Id"
+                    data={packageVersions}
+                    columns={vColumns} hide-checkbox-column>
+                </lightning-datatable>
+            </lightning-card>
+            <lightning-card  title="Package Subscribers">
+                <lightning-datatable
+                    key-field="Id"
+                    data={packageSubscribers}
+                    columns={sColumns} hide-checkbox-column>
+                </lightning-datatable>
+            </lightning-card>
+        </template>
+    </div>
+</template>
