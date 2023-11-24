@@ -15,12 +15,6 @@ const COLS = [
     label: "Package Category",
     fieldName: "PackageCategory",
     hideDefaultActions: true
-  },
-  {
-    label: "SystemModStamp",
-    fieldName: "SystemModStamp",
-    hideDefaultActions: true,
-    type: "date"
   }
 ];
 

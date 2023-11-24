@@ -3,9 +3,8 @@ public with sharing class PackageController {
     @AuraEnabled(cacheable=true)
     public static List<MetadataPackage> getPackageInfo(){
         try {
-
-            List<MetadataPackage> packages = [SELECT Id, Name, NamespacePrefix, PackageCategory, SystemModStamp FROM MetadataPackage ORDER BY SystemModStamp DESC];
-            return packages;
+                List<MetadataPackage> packages = [SELECT Id, Name, NamespacePrefix, PackageCategory FROM MetadataPackage ORDER BY SystemModStamp DESC];
+                return packages;
             
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
