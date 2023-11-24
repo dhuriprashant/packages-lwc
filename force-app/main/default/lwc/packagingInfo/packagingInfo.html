@@ -1,36 +1,43 @@
 <template>
-    <div>
-        <template if:true={packages.data}>
-            <lightning-layout multiple-rows="true">
-                <lightning-layout-item size="12" padding="around-small">
-                    <lightning-card title="Packages">
-                        <lightning-datatable
-                            key-field="Id"
-                            data={packages.data}
-                            columns={columns} max-row-selection="1"
-                            onrowselection={onRowSelection}>
-                        </lightning-datatable>
-                    </lightning-card>
-                </lightning-layout-item>
-                <lightning-layout-item size="6" padding="around-small">
-                    <lightning-card title="Package Versions">
-                        <lightning-datatable
-                            key-field="Id"
-                            data={packageVersions}
-                            columns={vColumns} hide-checkbox-column>
-                        </lightning-datatable>
-                    </lightning-card>
-                </lightning-layout-item>
-                <lightning-layout-item size="6" padding="around-small">
-                    <lightning-card title="Package Subscribers">
-                        <lightning-datatable
-                            key-field="Id"
-                            data={packageSubscribers}
-                            columns={sColumns} hide-checkbox-column>
-                        </lightning-datatable>
-                    </lightning-card>
-                </lightning-layout-item>
-            </lightning-layout>
-        </template>
-    </div>
+  <div>
+    <template if:true={packages.data}>
+      <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12" padding="around-small">
+          <lightning-card title="Packages">
+            <lightning-datatable
+              key-field="Id"
+              data={packages.data}
+              columns={columns}
+              max-row-selection="1"
+              onrowselection={onRowSelection}
+              default-selected-rows={defaultSelectedRows}
+            >
+            </lightning-datatable>
+          </lightning-card>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-card title="Package Versions">
+            <lightning-datatable
+              key-field="Id"
+              data={packageVersions}
+              columns={vColumns}
+              hide-checkbox-column
+            >
+            </lightning-datatable>
+          </lightning-card>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-card title="Package Subscribers">
+            <lightning-datatable
+              key-field="Id"
+              data={packageSubscribers}
+              columns={sColumns}
+              hide-checkbox-column
+            >
+            </lightning-datatable>
+          </lightning-card>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </div>
 </template>
