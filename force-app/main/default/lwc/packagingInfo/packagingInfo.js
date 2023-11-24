@@ -91,6 +91,7 @@ export default class PackagingInfo extends LightningElement {
       this.packageVersions = data;
     } else if (error) {
       this.packageVersions = undefined;
+      console.error("Error fetching package versions:", error);
     }
   }
 
@@ -100,6 +101,7 @@ export default class PackagingInfo extends LightningElement {
       this.packageSubscribers = data;
     } else if (error) {
       this.packageSubscribers = undefined;
+      console.error("Error fetching package subscribers:", error);
     }
   }
 }
