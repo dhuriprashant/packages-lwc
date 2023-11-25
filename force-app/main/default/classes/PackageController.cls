@@ -19,7 +19,7 @@ public with sharing class PackageController {
             throw new AuraHandledException('You do not have the necessary permissions to perform this operation.');
         }
         try {
-            List<MetadataPackageVersion> packageVersions = [SELECT BuildNumber, Id, IsDeprecated, MajorVersion, MetadataPackageid, MinorVersion, Name, PatchVersion, ReleaseState, SystemModStamp FROM MetadataPackageVersion 
+            List<MetadataPackageVersion> packageVersions = [SELECT Id, MetadataPackageid, Name, MajorVersion, MinorVersion, PatchVersion, BuildNumber, ReleaseState, IsDeprecated FROM MetadataPackageVersion 
             where MetadataPackageid = :metadataPackageid ORDER BY SystemModStamp DESC];
             return packageVersions;
         } catch (Exception e) {

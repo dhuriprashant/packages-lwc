@@ -21,8 +21,13 @@ const COLS = [
 
 const VCOLS = [
   {
-    label: "Package Version Name",
+    label: "Version Name",
     fieldName: "Name",
+    hideDefaultActions: true
+  },
+  {
+    label: "Version",
+    fieldName: "VersionNumber",
     hideDefaultActions: true
   },
   {
@@ -36,8 +41,8 @@ const VCOLS = [
     hideDefaultActions: true
   },
   {
-    label: "Version Number",
-    fieldName: "BuildNumber",
+    label: "Is Deprecated",
+    fieldName: "IsDeprecated",
     hideDefaultActions: true
   }
 ];
@@ -70,7 +75,17 @@ export default class PackagingInfo extends LightningElement {
     // Fetch related package versions and package subscribers
     getPackageVersions({ metadataPackageid: selectedRowId })
       .then((result) => {
-        this.packageVersions = result;
+        this.packageVersions = result.map((row) => ({
+          ...row,
+          VersionNumber:
+            row.MajorVersion +
+            "." +
+            row.MinorVersion +
+            "." +
+            row.PatchVersion +
+            "." +
+            row.BuildNumber
+        }));
       })
       .catch((error) => {
         console.error("Error fetching package versions:", error);
