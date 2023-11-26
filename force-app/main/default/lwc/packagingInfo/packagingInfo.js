@@ -48,14 +48,25 @@ const VCOLS = [
 ];
 
 const SCOLS = [
-  { label: "Org Name", fieldName: "OrgName", hideDefaultActions: true },
   {
     label: "Package Version",
     fieldName: "MetadataPackageVersionId",
     hideDefaultActions: true
   },
+  { label: "Org ID", fieldName: "OrgKey", hideDefaultActions: true },
+  { label: "Org Name", fieldName: "OrgName", hideDefaultActions: true },
   { label: "Org Type", fieldName: "OrgType", hideDefaultActions: true },
-  { label: "Org Status", fieldName: "OrgStatus", hideDefaultActions: true }
+  { label: "Org Status", fieldName: "OrgStatus", hideDefaultActions: true },
+  {
+    label: "Instance Name",
+    fieldName: "InstanceName",
+    hideDefaultActions: true
+  },
+  {
+    label: "Installed Status",
+    fieldName: "InstalledStatus",
+    hideDefaultActions: true
+  }
 ];
 
 export default class PackagingInfo extends LightningElement {

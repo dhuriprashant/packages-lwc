@@ -33,7 +33,7 @@ public with sharing class PackageController {
             throw new AuraHandledException('You do not have the necessary permissions to perform this operation.');
         }
         try {
-            List<PackageSubscriber> packageSubscribers = [SELECT Id, InstanceName, MetadataPackageId, MetadataPackageVersionId, OrgKey, OrgName, OrgStatus, OrgType, ParentOrg, SystemModStamp FROM PackageSubscriber 
+            List<PackageSubscriber> packageSubscribers = [SELECT Id, MetadataPackageVersionId, OrgKey, OrgName, OrgStatus, OrgType, InstanceName, InstalledStatus FROM PackageSubscriber 
             where MetadataPackageId = :metadataPackageid ORDER BY SystemModStamp DESC];
             return packageSubscribers;
         } catch (Exception e) {
