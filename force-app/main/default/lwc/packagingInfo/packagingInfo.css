@@ -1,0 +1,4 @@
+.my-datatable .slds-table {
+  max-height: 300px;
+  overflow-y: auto;
+}
