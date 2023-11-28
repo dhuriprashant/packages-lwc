@@ -1,5 +1,4 @@
 import { LightningElement, wire, track } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getPackageInfo from "@salesforce/apex/PackageController.getPackageInfo";
 import getPackageVersions from "@salesforce/apex/PackageController.getPackageVersions";
 import getPackageSubscribers from "@salesforce/apex/PackageController.getPackageSubscribers";
@@ -109,20 +108,5 @@ export default class PackagingInfo extends LightningElement {
       .catch((error) => {
         console.error("Error fetching package subscribers:", error);
       });
-  }
-
-  showToast() {
-    this.dispatchEvent(
-      new ShowToastEvent({
-        title: "Tip",
-        message:
-          "Click on a row radio button to display related package versions and package subscribers.",
-        variant: "info"
-      })
-    );
-  }
-
-  connectedCallback() {
-    this.showToast();
   }
 }
