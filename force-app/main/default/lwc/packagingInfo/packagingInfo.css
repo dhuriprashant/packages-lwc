@@ -1,4 +1,3 @@
-.my-datatable .slds-table {
-  max-height: 300px;
-  overflow-y: auto;
+.flex-layout lightning-layout-item {
+  flex: 1 1 50%;
 }
