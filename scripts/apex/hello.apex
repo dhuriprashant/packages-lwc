@@ -5,6 +5,9 @@
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+HttpRequest req = new HttpRequest();
+req.setEndpoint('callout:My_Named_Credential/services/data/v52.0/tooling/query/?q=SELECT+Id,Name,NamespacePrefix,PackageCategory+FROM+MetadataPackage');
+req.setMethod('GET');
+Http http = new Http();
+HTTPResponse res = http.send(req);
+System.debug(res.getBody());
