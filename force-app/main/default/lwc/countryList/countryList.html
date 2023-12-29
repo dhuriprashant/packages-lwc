@@ -4,17 +4,17 @@
 
 <!-- Country List -->
 <template>
-    <div style="height: 500px">
-        <lightning-datatable
-                columns={columns}
-                data={data}
-                key-field="Id"
-                enable-infinite-loading
-                onloadmore={loadMoreData}
-                hide-checkbox-column="true"
-                show-row-number-column="true"
-        >
-        </lightning-datatable>
-    </div>
-    {loadMoreStatus}
+  <div style="height: 500px">
+    <lightning-datatable
+      columns={columns}
+      data={data}
+      key-field="Id"
+      enable-infinite-loading
+      onloadmore={loadMoreData}
+      hide-checkbox-column="true"
+      show-row-number-column="true"
+    >
+    </lightning-datatable>
+  </div>
+  {loadMoreStatus}
 </template>
